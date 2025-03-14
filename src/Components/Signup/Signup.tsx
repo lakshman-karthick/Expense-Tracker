@@ -37,16 +37,23 @@ export const Signup = ({setLoginflag}:{setLoginflag:Dispatch<SetStateAction<numb
         setValidation('');
         const data : string = localStorage.getItem('UserData') ?? ""; // Null Coalescing
         const parsedData = data && JSON.parse(data);
-        const presentData = {...parsedData, [emailRef.current?.value ?? "Default_Email"] :formData};
-
-        localStorage.setItem('UserData',JSON.stringify(presentData));
-        if(nameRef.current)  nameRef.current.value = '';
-        if(emailRef.current)  emailRef.current.value = '';
-        if(mobileNumberRef.current)  mobileNumberRef.current.value = '';
-        if(passwordRef.current)  passwordRef.current.value = '';
-        if(confirmPasswordRef.current)  confirmPasswordRef.current.value = '';
-        setLoginflag(0);
-        console.log("success!!")
+        if(parsedData[emailRef.current?.value ?? ''])
+        {
+            setValidation("This Email is already Registered. Please Login");
+        }
+        else
+        {
+            const presentData = {...parsedData, [emailRef.current?.value ?? "Default_Email"] :formData};
+            localStorage.setItem('UserData',JSON.stringify(presentData));
+            if(nameRef.current)  nameRef.current.value = '';
+            if(emailRef.current)  emailRef.current.value = '';
+            if(mobileNumberRef.current)  mobileNumberRef.current.value = '';
+            if(passwordRef.current)  passwordRef.current.value = '';
+            if(confirmPasswordRef.current)  confirmPasswordRef.current.value = '';
+            setLoginflag(0);
+            console.log("success!!")
+        }
+        
   }
 
   return (
@@ -58,8 +65,9 @@ export const Signup = ({setLoginflag}:{setLoginflag:Dispatch<SetStateAction<numb
             <InputField label="Mobile Number" type="text" placeholder="Give Mobile Number" ref={mobileNumberRef}/>
             <InputField label="Password" type="password" placeholder="Give Password" ref={passwordRef}/>
             <InputField label="Confirm Password" type="password" placeholder="Give Password" ref={confirmPasswordRef}/>
-            <Button click={handleSignUp} content="Sign Up"></Button>
             <h3 className="font-bold text-red-700 mt-5">{validation}</h3>
+            <Button click={handleSignUp} content="Sign Up"></Button>
+            <div className="flex flex-row justify-center mt-4"><p className="mr-3">Already have account?</p> <p onClick={()=>setLoginflag(0)}  className="text-blue-400 cursor-pointer hover:text-blue-600">Login</p></div>
         </form>
     </div>
   )

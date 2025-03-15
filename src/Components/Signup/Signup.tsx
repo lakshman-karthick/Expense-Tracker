@@ -1,8 +1,13 @@
-import { Dispatch, SetStateAction, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { InputField,Button } from "../FormElements"
+import { appDispatch } from "../../Redux/store";
+import { useDispatch } from "react-redux";
+import { toggle } from "../../Redux/Slices/LoginButtonToggleSlice";
 
-export const Signup = ({setLoginflag}:{setLoginflag:Dispatch<SetStateAction<number>>}) => {
 
+export const Signup = () => {
+
+  const Dispatch = useDispatch<appDispatch>();
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -50,7 +55,7 @@ export const Signup = ({setLoginflag}:{setLoginflag:Dispatch<SetStateAction<numb
             if(mobileNumberRef.current)  mobileNumberRef.current.value = '';
             if(passwordRef.current)  passwordRef.current.value = '';
             if(confirmPasswordRef.current)  confirmPasswordRef.current.value = '';
-            setLoginflag(0);
+            Dispatch(toggle(0));
             console.log("success!!")
         }
         
@@ -67,7 +72,7 @@ export const Signup = ({setLoginflag}:{setLoginflag:Dispatch<SetStateAction<numb
             <InputField label="Confirm Password" type="password" placeholder="Give Password" ref={confirmPasswordRef}/>
             <h3 className="font-bold text-red-700 mt-5">{validation}</h3>
             <Button click={handleSignUp} content="Sign Up"></Button>
-            <div className="flex flex-row justify-center mt-4"><p className="mr-3">Already have account?</p> <p onClick={()=>setLoginflag(0)}  className="text-blue-400 cursor-pointer hover:text-blue-600">Login</p></div>
+            <div className="flex flex-row justify-center mt-4"><p className="mr-3">Already have account?</p> <p onClick={()=>Dispatch(toggle(0))}  className="text-blue-400 cursor-pointer hover:text-blue-600">Login</p></div>
         </form>
     </div>
   )

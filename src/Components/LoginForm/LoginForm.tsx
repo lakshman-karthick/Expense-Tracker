@@ -1,7 +1,12 @@
-import React,{ Dispatch, useRef,SetStateAction } from "react"
+import React,{ useRef } from "react"
 import { InputField ,Button} from "../FormElements";
 import { useNavigate } from "react-router-dom";
-export const LoginForm = ({setLoginflag}:{setLoginflag: Dispatch<SetStateAction<number>>}) => {
+import { appDispatch } from "../../Redux/store";
+import { useDispatch } from "react-redux";
+import { toggle } from "../../Redux/Slices/LoginButtonToggleSlice";
+
+export const LoginForm = () => {
+    const Dispatch = useDispatch<appDispatch>();
     const Navigate = useNavigate();
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -14,6 +19,8 @@ export const LoginForm = ({setLoginflag}:{setLoginflag: Dispatch<SetStateAction<
             if(data[email].Password === passwordRef.current?.value)
             {
                 Navigate('/tracker');
+                if(emailRef.current)  emailRef.current.value = '';
+                if(passwordRef.current)  passwordRef.current.value = '';
                 console.log("Login Successful !!!");
             }
             else{
@@ -32,7 +39,7 @@ export const LoginForm = ({setLoginflag}:{setLoginflag: Dispatch<SetStateAction<
             <InputField label="Name" type="text" placeholder="Give Name" ref={emailRef}/>
             <InputField label="Password" type="password" placeholder="Give Password" ref={passwordRef}/>
             <Button click={handleLogin} content="Login"></Button>
-            <div className="flex flex-row justify-center mt-4"><p className="mr-3">Don't have Account?</p> <p onClick={()=>setLoginflag(1)}  className="text-blue-400 cursor-pointer hover:text-blue-600">Register</p></div>
+            <div className="flex flex-row justify-center mt-4"><p className="mr-3">Don't have Account?</p> <p onClick={()=>Dispatch(toggle(1))}  className="text-blue-400 cursor-pointer hover:text-blue-600">Register</p></div>
         </form>
     </div>
   )

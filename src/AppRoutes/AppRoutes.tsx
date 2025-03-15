@@ -5,13 +5,12 @@ const LoginPage = lazy(() => import("../Pages/LoginPage"));
 const ContentPage = lazy(() => import("../Pages/ContentPage"));
 
 const AppRoutes = () => {
-    const [loginflag,setLoginflag] = useState<number>(0);
   return (
     <div className="flex flex-col h-screen">
-        <Titlebar loginflag={loginflag} setLoginflag={setLoginflag} />
+        <Titlebar/>
         <Suspense fallback={<p>Loading Page...</p>}>
         <Routes>
-            <Route path="/" element={<LoginPage loginflag={loginflag} setLoginflag={setLoginflag}/>}></Route>
+            <Route path="/" element={<LoginPage/>}></Route>
             <Route path="/tracker" element={<ContentPage/>}></Route>
         </Routes>
         </Suspense>

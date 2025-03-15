@@ -1,19 +1,10 @@
+import { configureStore } from "@reduxjs/toolkit";
+import LoginButtonToggleSlice from "./Slices/LoginButtonToggleSlice";
+export const Store = configureStore({
+    reducer:{
+        loginToggle : LoginButtonToggleSlice
+    },
+});
 
-
-
-// Localstorage - 
-
-/*
-[
-    {
-        Id:
-        Name:
-        Email id:
-        Password:
-
-    }
-]
-
-
-
-*/
+export type rootState = ReturnType<typeof Store.getState>;
+export type appDispatch = typeof Store.dispatch;

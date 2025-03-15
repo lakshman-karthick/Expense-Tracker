@@ -4,7 +4,8 @@ import { useMemo } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from './AppRoutes/AppRoutes';
-
+import { Provider } from 'react-redux';
+import {Store} from './Redux/store'
 
 // ThemeProvider - Not Working
 
@@ -37,9 +38,11 @@ const App: React.FC = () =>{
   }), []);
   return (
     <ThemeProvider theme ={theme}>
-      <BrowserRouter>
-        <AppRoutes/>
-      </BrowserRouter>
+      <Provider store={Store}>
+        <BrowserRouter>
+          <AppRoutes/>
+        </BrowserRouter>
+      </Provider>
     </ThemeProvider>
   )
 }

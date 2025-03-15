@@ -1,6 +1,10 @@
-import { Dispatch, SetStateAction } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggle } from "../../Redux/Slices/LoginButtonToggleSlice";
+import { appDispatch,rootState } from "../../Redux/store";
 
-export const Titlebar = ({loginflag,setLoginflag}:{loginflag:number;setLoginflag:Dispatch<SetStateAction<number>>}) => {
+export const Titlebar = () => {
+  const loginToggle = useSelector((state: rootState)=> state.loginToggle.value);
+  const dispatch = useDispatch<appDispatch>();
   return (
     <div className={`relative flex flex-wrap items-center justify-between bg-black h-20 `} >
         <div className="flex-1"></div>
@@ -9,7 +13,9 @@ export const Titlebar = ({loginflag,setLoginflag}:{loginflag:number;setLoginflag
         </div>
         
         <div className="flex-1 flex justify-end">
-            <button onClick={() => setLoginflag(prev => (prev === 0 ? 1 : 0))}>{loginflag === 0 ? 'SignUp': (loginflag === 1? 'Login': 'Logout')}</button>
+            <button onClick={()=>dispatch(toggle(loginToggle === 0 ? 1 : 0))}>
+              {loginToggle === 0 ? "SignUp": (loginToggle === 1 ? "Login": "Logout")}
+            </button>
         </div>
     </div>
   )

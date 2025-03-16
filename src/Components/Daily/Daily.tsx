@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Daily = () => {
   return (
-    <div className='bg-gray-800 flex-1 flex flex-col m-3'>
+    <div className='bg-gray-800 flex-1 flex flex-col m-3 h-[80vh] overflow-auto custom-scrollbar'>
         <div>
             <div className='bg-black m-4 rounded-xl p-4 items-center'>
                 23rd

@@ -1,6 +1,3 @@
-import React from 'react'
-import { Button } from '../FormElements'
-
 export function Navbar() {
   return (
     <div className='bg-black w-1/6'>

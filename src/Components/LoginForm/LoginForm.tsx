@@ -21,6 +21,7 @@ export const LoginForm = () => {
                 Navigate('/tracker');
                 if(emailRef.current)  emailRef.current.value = '';
                 if(passwordRef.current)  passwordRef.current.value = '';
+                Dispatch(toggle(2));
                 console.log("Login Successful !!!");
             }
             else{
